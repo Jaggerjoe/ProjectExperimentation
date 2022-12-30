@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class Launch : MonoBehaviour
 {
-    [SerializeField] private Rigidbody Freezbe;
+    [SerializeField] private Transform Freezbe;
     [SerializeField] private Transform Target;
     [SerializeField] private float m_Gravity = -18;
     [SerializeField] private float m_H = 15;
@@ -18,7 +18,7 @@ public class Launch : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Freezbe.useGravity = false;
+        //Freezbe.useGravity = false;
     }
 
     private void Update()
@@ -26,30 +26,34 @@ public class Launch : MonoBehaviour
         if (Keyboard.current.spaceKey.wasPressedThisFrame && !m_Launch)
         {
             DrawTrajectory();
-            Lanch();
+            m_Launch = true;
         }
 
     }
 
     private void FixedUpdate()
     {
-    
+        if (m_Launch)
+            Lanch();
     }
-    void Lanch()
+    public void Lanch()
     {
-        Physics.gravity = Vector3.forward * m_Gravity;
-        Freezbe.useGravity = true;
-        Freezbe.velocity = CalculateLaunchVelocity().InitialVelocity;
-        //Freezbe.position = Vector3.MoveTowards(Freezbe.transform.position, m_ListPoints[m_WayPointIndex], m_Speed * Time.fixedDeltaTime);
-        //if(Freezbe.position == m_ListPoints[m_WayPointIndex])
-        //{
-        //    m_WayPointIndex += 1;
-        //}
-        //if(m_WayPointIndex == m_ListPoints.Count)
-        //{
-        //    m_Launch = false;
-        //    m_WayPointIndex = 0;
-        //}
+        //Physics.gravity = Vector3.forward * m_Gravity;
+        //Freezbe.useGravity = true;
+        //Freezbe.velocity = CalculateLaunchVelocity().InitialVelocity;
+        if(m_Launch)
+        {
+            Freezbe.position = Vector3.MoveTowards(Freezbe.transform.position, m_ListPoints[m_WayPointIndex], m_Speed * Time.fixedDeltaTime);
+            if (Freezbe.position == m_ListPoints[m_WayPointIndex])
+            {
+                m_WayPointIndex += 1;
+            }
+            if (m_WayPointIndex == m_ListPoints.Count)
+            {
+                m_Launch = false;
+                m_WayPointIndex = 0;
+            }
+        }
     }
 
     LaunchData CalculateLaunchVelocity()
@@ -63,7 +67,7 @@ public class Launch : MonoBehaviour
         return new LaunchData(l_VelocityXY + l_VelocityZ * -Mathf.Sign(m_Gravity), l_Time);
     }
 
-    void DrawTrajectory()
+    public void DrawTrajectory()
     {
         LaunchData l_Launch = CalculateLaunchVelocity();
         Vector3 l_PreviousDrawPoint = Freezbe.position;
@@ -78,6 +82,8 @@ public class Launch : MonoBehaviour
             Debug.DrawLine(l_PreviousDrawPoint, l_DrawPoint, Color.red);
             l_PreviousDrawPoint = l_DrawPoint;
         }
+        m_Launch = true;
+        Lanch();
     }
 
     struct LaunchData
