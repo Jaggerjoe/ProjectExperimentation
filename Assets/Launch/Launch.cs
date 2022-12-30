@@ -6,11 +6,11 @@ public class Launch : MonoBehaviour
 {
     [SerializeField] private Transform Freezbe;
     [SerializeField] private Transform Target;
-    [SerializeField] private float m_Gravity = -18;
+    [SerializeField]private float m_Gravity = 18;
     [SerializeField] private float m_H = 15;
     [SerializeField] private float m_Speed = 15;
-
     [SerializeField] private List<Vector3> m_ListPoints = new List<Vector3>();
+
     private int m_WayPointIndex = 0;
     private bool m_Launch = false;
     private int m_Resolution = 20;
@@ -19,16 +19,6 @@ public class Launch : MonoBehaviour
     void Start()
     {
         //Freezbe.useGravity = false;
-    }
-
-    private void Update()
-    {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && !m_Launch)
-        {
-            DrawTrajectory();
-            m_Launch = true;
-        }
-
     }
 
     private void FixedUpdate()
@@ -64,7 +54,7 @@ public class Launch : MonoBehaviour
         Vector3 l_VelocityZ = Vector3.forward * Mathf.Sqrt(-2 * m_Gravity * m_H);
         Vector3 l_VelocityXY = l_DispalementXY / l_Time;
 
-        return new LaunchData(l_VelocityXY + l_VelocityZ * -Mathf.Sign(m_Gravity), l_Time);
+        return new LaunchData(l_VelocityXY + l_VelocityZ, l_Time);
     }
 
     public void DrawTrajectory()

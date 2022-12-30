@@ -302,7 +302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 352939172}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.1, y: 0, z: -0}
   m_LocalScale: {x: 0.3, y: 0.02, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -324,7 +324,7 @@ MonoBehaviour:
   Freezbe: {fileID: 352939176}
   Target: {fileID: 87093209}
   m_Gravity: -9.8
-  m_H: 15
+  m_H: 20
   m_Speed: 30
   m_ListPoints: []
 --- !u!1 &377207882
@@ -603,7 +603,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7951401154454566895, guid: 2c8c1322bb036af4a8384c098f65a923, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -3.89
       objectReference: {fileID: 0}
     - target: {fileID: 7951401154454566895, guid: 2c8c1322bb036af4a8384c098f65a923, type: 3}
       propertyPath: m_LocalPosition.y
