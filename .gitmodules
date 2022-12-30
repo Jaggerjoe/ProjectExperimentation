@@ -1,0 +1,3 @@
+[submodule "Assets/LibraryAnimation"]
+	path = Assets/LibraryAnimation
+	url = https://github.com/Jaggerjoe/LibraryAnimation.git
