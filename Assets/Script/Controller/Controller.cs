@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Controller : MonoBehaviour
 {
     [SerializeField] private SO_InputManager m_Input = null;
+    [SerializeField] private Launch m_Lauch = null;
     [SerializeField] private float m_Speed;
     [SerializeField] private Transform m_Parent = null;
     private GameObject m_Freezbe = null;
@@ -22,9 +24,14 @@ public class Controller : MonoBehaviour
     {
         PlayerMovement(m_Input.MoveVector);
         Throw(m_Input.ThrowB);
+        //if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        //{
+        //    CreateTargetLauch();
+        //}
         if (m_Input.MoveVector.sqrMagnitude == 0)
             return;
     }
+
     void PlayerMovement(Vector3 p_Direction)
     {
         if(p_Direction != Vector3.zero)
@@ -42,6 +49,15 @@ public class Controller : MonoBehaviour
         }
     }
 
+    void CreateTargetLauch()
+    {
+        Transform l_Target = new GameObject("Target").transform;
+        l_Target.position = transform.position + transform.forward * 15;
+        m_Lauch.Target = l_Target;
+        //m_Lauch.DrawTrajectory();
+        Debug.Log(l_Target.position);
+    }
+
     private void Throw(bool p_Trow)
     {
         if(p_Trow)
@@ -50,16 +66,16 @@ public class Controller : MonoBehaviour
             m_Input.ThrowB = false;
         }
     }
+
     public void ThrowFreezbe()
     {
         if(m_Freezbe != null)
         {
-            m_Freezbe.GetComponent<Launch>().DrawTrajectory();
+            
             m_Freezbe.transform.parent = null;
             m_Freezbe = null;
         }
     }
-
 
     public Transform ParentHand
     {
