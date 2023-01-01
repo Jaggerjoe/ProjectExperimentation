@@ -7,7 +7,7 @@ public class Controller : MonoBehaviour
     [SerializeField] private Launch m_Lauch = null;
     [SerializeField] private float m_Speed;
     [SerializeField] private Transform m_Parent = null;
-    private GameObject m_Freezbe = null;
+    [SerializeField] private GameObject m_Freezbe = null;
 
     private float m_SmoothTime = 0.05f;
     private float m_CurrentVelo;
@@ -24,10 +24,10 @@ public class Controller : MonoBehaviour
     {
         PlayerMovement(m_Input.MoveVector);
         Throw(m_Input.ThrowB);
-        //if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        //{
-        //    CreateTargetLauch();
-        //}
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            //CreateTargetLauch();
+        }
         if (m_Input.MoveVector.sqrMagnitude == 0)
             return;
     }
@@ -54,6 +54,7 @@ public class Controller : MonoBehaviour
         Transform l_Target = new GameObject("Target").transform;
         l_Target.position = transform.position + transform.forward * 15;
         m_Lauch.Target = l_Target;
+        //m_Lauch.QuadraticBeizerCurve();
         //m_Lauch.DrawTrajectory();
         Debug.Log(l_Target.position);
     }
@@ -71,9 +72,10 @@ public class Controller : MonoBehaviour
     {
         if(m_Freezbe != null)
         {
-            
             m_Freezbe.transform.parent = null;
             m_Freezbe = null;
+            m_Lauch.QuadraticBeizerCurve();
+            Debug.Log("coucou");
         }
     }
 

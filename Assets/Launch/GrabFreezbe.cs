@@ -27,6 +27,7 @@ public class GrabFreezbe : MonoBehaviour
             other.transform.parent = m_Controller.ParentHand;
             m_Controller.FreezbeClass = other.gameObject;
             m_Launch.Object = other.transform;
+            other.GetComponent<Collider>().enabled = false;
         }
     }
 }

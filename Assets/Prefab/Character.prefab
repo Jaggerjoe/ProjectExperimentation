@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2917582197213389098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9133408425445854713}
+  m_Layer: 0
+  m_Name: PositionLaunchFeezbe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9133408425445854713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2917582197213389098}
+  m_LocalRotation: {x: -0.4999983, y: -0.4999985, z: 0.5000015, w: 0.50000167}
+  m_LocalPosition: {x: -0, y: 0.157, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8641459848286855443}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7951401154454566892
 GameObject:
   m_ObjectHideFlags: 0
@@ -53,6 +84,7 @@ MonoBehaviour:
   m_Lauch: {fileID: 7187824583820675925}
   m_Speed: 10
   m_Parent: {fileID: 8641459848286855443}
+  m_Freezbe: {fileID: 0}
 --- !u!54 &464535034
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -109,11 +141,67 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Freezbe: {fileID: 0}
-  Target: {fileID: 0}
+  m_TargetFreebe: {fileID: 0}
+  m_Target: {fileID: 0}
+  m_TargetPrefab: {fileID: 0}
   m_Gravity: -18
   m_H: 15
   m_Speed: 15
-  m_ListPoints: []
+  m_Position:
+  - {x: -0.3996, y: 0.86856, z: 0}
+  - {x: 0.22080001, y: 1.7016685, z: 0}
+  - {x: 0.8411999, y: 2.4993255, z: 0}
+  - {x: 1.4616, y: 3.2615314, z: 0}
+  - {x: 2.0819998, y: 3.9882855, z: 0}
+  - {x: 2.7024, y: 4.6795883, z: 0}
+  - {x: 3.3228002, y: 5.33544, z: 0}
+  - {x: 3.9431996, y: 5.9558396, z: 0}
+  - {x: 4.5636, y: 6.540789, z: 0}
+  - {x: 5.184, y: 7.0902863, z: 0}
+  - {x: 5.8044004, y: 7.6043315, z: 0}
+  - {x: 6.4248, y: 8.082925, z: 0}
+  - {x: 7.0451994, y: 8.526068, z: 0}
+  - {x: 7.6656, y: 8.933761, z: 0}
+  - {x: 8.286, y: 9.306001, z: 0}
+  - {x: 8.9064, y: 9.642789, z: 0}
+  - {x: 9.526799, y: 9.944125, z: 0}
+  - {x: 10.147201, y: 10.2100115, z: 0}
+  - {x: 10.767599, y: 10.440445, z: 0}
+  - {x: 11.3880005, y: 10.635428, z: 0}
+  - {x: 12.0084, y: 10.79496, z: 0}
+  - {x: 12.628799, y: 10.91904, z: 0}
+  - {x: 13.2492, y: 11.007668, z: 0}
+  - {x: 13.869598, y: 11.060844, z: 0}
+  - {x: 14.49, y: 11.078571, z: 0}
+  - {x: 15.110399, y: 11.060846, z: 0}
+  - {x: 15.730801, y: 11.0076685, z: 0}
+  - {x: 16.3512, y: 10.91904, z: 0}
+  - {x: 16.9716, y: 10.79496, z: 0}
+  - {x: 17.592, y: 10.635428, z: 0}
+  - {x: 18.2124, y: 10.440445, z: 0}
+  - {x: 18.8328, y: 10.2100115, z: 0}
+  - {x: 19.453201, y: 9.944125, z: 0}
+  - {x: 20.0736, y: 9.642789, z: 0}
+  - {x: 20.694, y: 9.306001, z: 0}
+  - {x: 21.3144, y: 8.93376, z: 0}
+  - {x: 21.934801, y: 8.526068, z: 0}
+  - {x: 22.555199, y: 8.082926, z: 0}
+  - {x: 23.175598, y: 7.604332, z: 0}
+  - {x: 23.796001, y: 7.0902853, z: 0}
+  - {x: 24.4164, y: 6.540789, z: 0}
+  - {x: 25.0368, y: 5.955841, z: 0}
+  - {x: 25.6572, y: 5.3354397, z: 0}
+  - {x: 26.277601, y: 4.679589, z: 0}
+  - {x: 26.897999, y: 3.9882865, z: 0}
+  - {x: 27.5184, y: 3.2615309, z: 0}
+  - {x: 28.1388, y: 2.4993258, z: 0}
+  - {x: 28.7592, y: 1.7016695, z: 0}
+  - {x: 29.379602, y: 0.8685592, z: 0}
+  - {x: 30, y: 0, z: 0}
+  m_CurrentDist: 31.02
+  m_CurrentHeight: 22.157143
+  m_MaxHeigth: 25
+  m_MaxDist: 35
 --- !u!1001 &7951401154969837275
 PrefabInstance:
   m_ObjectHideFlags: 0
