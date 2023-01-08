@@ -24,10 +24,10 @@ public class Controller : MonoBehaviour
     {
         PlayerMovement(m_Input.MoveVector);
         Throw(m_Input.ThrowB);
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            //CreateTargetLauch();
-        }
+        //if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        //{
+        //    //CreateTargetLauch();
+        //}
         if (m_Input.MoveVector.sqrMagnitude == 0)
             return;
     }

@@ -4,20 +4,21 @@ using UnityEngine.InputSystem;
 
 public class Launch : MonoBehaviour
 {
-    [SerializeField] private Transform Freezbe;
-    [SerializeField] private Transform m_TargetFreebe;
+    [SerializeField] private Transform m_PositionBallHand;
+    [SerializeField] private Transform m_Ball;
     [SerializeField] private Transform m_Target;
     [SerializeField] private Transform m_TargetPrefab;
 
     [SerializeField] private float m_Gravity = -18;
     [SerializeField] private float m_H = 15;
-    [SerializeField] private float m_Speed = 15;
+    [SerializeField] private float m_Speed = 0;
 
+    [SerializeField,Header("ArrayPosition")]private int m_Resolution = 0;
     [SerializeField] private Vector3[] m_Position;
 
     private int m_WayPointIndex = 0;
-    private int m_Resolution = 50;
 
+    [Header("HeigthBezierCurve ")]
     [SerializeField] private float m_CurrentDist = 0;
     [SerializeField] private float m_CurrentHeight = 0;
     [SerializeField] private float m_MaxHeigth = 6;
@@ -29,7 +30,6 @@ public class Launch : MonoBehaviour
     void Start()
     {
         //Freezbe.useGravity = false;
-        m_Position = new Vector3[m_Resolution];
         //QuadraticBeizerCurve();
     }
 
@@ -40,6 +40,8 @@ public class Launch : MonoBehaviour
         //    //    DrawTrajectory();
         //    m_Launch = true;
         //}
+        
+        Debug.Log(m_Launch);
     }
 
     private void FixedUpdate()
@@ -62,9 +64,10 @@ public class Launch : MonoBehaviour
 
         if (m_Launch)
         {
-            m_TargetFreebe.GetComponent<Collider>().enabled = true;
-            m_TargetFreebe.position = Vector3.MoveTowards(m_TargetFreebe.transform.position, m_Position[m_WayPointIndex], m_Speed * Time.fixedDeltaTime);
-            if (m_TargetFreebe.position == m_Position[m_WayPointIndex])
+            m_Ball.position = Vector3.MoveTowards(m_Ball.transform.position, m_Position[m_WayPointIndex], m_Speed * Time.fixedDeltaTime);
+            //m_Ball.position = m_Position[m_WayPointIndex] * Time.fixedDeltaTime;
+            Debug.Log(m_Ball.position);
+            if (m_Ball.position == m_Position[m_WayPointIndex])
             {
                 m_WayPointIndex += 1;
             }
@@ -72,30 +75,21 @@ public class Launch : MonoBehaviour
             {
                 m_Launch = false;
                 m_WayPointIndex = 0;
+                m_Ball = null;
             }
         }
     }
 
-    float ChangeHeightBezierCurve()
-    {
-        m_CurrentDist = Vector3.Distance(Freezbe.position, m_Target.position);
-        m_CurrentDist = Mathf.Clamp(m_CurrentDist, 0, m_MaxDist);
-
-        if (m_CurrentDist >= 5)
-        {
-            m_CurrentHeight = Mathf.Lerp(0, m_MaxHeigth, m_CurrentDist / m_MaxDist);
-        }
-        return m_CurrentHeight;
-    }
-
     public void QuadraticBeizerCurve()
     {
-        Freezbe.LookAt(m_Target, Vector3.forward);
+        m_Position = new Vector3[m_Resolution];
+        m_PositionBallHand.LookAt(m_Target, Vector3.forward);
         for (int i = 1; i < m_Resolution + 1; i++)
         {
             float t = i / (float)m_Resolution;
-            m_Position[i - 1] = CalculateQuadratiqueBezierCurve(t, Freezbe.position, PositionHeightCuvre(Freezbe.position, m_Target.position), m_Target.position);
+            m_Position[i - 1] = CalculateQuadratiqueBezierCurve(t, m_PositionBallHand.position, PositionHeightCuvre(m_PositionBallHand.position, m_Target.position), m_Target.position);
         }
+        m_Ball.GetComponent<Collider>().enabled = true;
         m_Launch = true;
     }
 
@@ -104,9 +98,20 @@ public class Launch : MonoBehaviour
         float x = (p1.x + p0.x)/2;
         float y = (p1.y + p0.y)/2;
         float z = (p1.z + p0.z)/2;
-        m_TargetPrefab.position = new Vector3(x, y, z) + Freezbe.up * ChangeHeightBezierCurve();
+        m_TargetPrefab.position = new Vector3(x, y, z) + m_PositionBallHand.up * ChangeHeightBezierCurve();
 
         return m_TargetPrefab.position;
+    }
+    float ChangeHeightBezierCurve()
+    {
+        m_CurrentDist = Vector3.Distance(m_PositionBallHand.position, m_Target.position);
+        m_CurrentDist = Mathf.Clamp(m_CurrentDist, 0, m_MaxDist);
+
+        if (m_CurrentDist >= 5)
+        {
+            m_CurrentHeight = Mathf.Lerp(0, m_MaxHeigth, m_CurrentDist / m_MaxDist);
+        }
+        return m_CurrentHeight;
     }
 
     private Vector3 CalculateQuadratiqueBezierCurve(float t , Vector3 p0, Vector3 p1, Vector3 p2)
@@ -182,20 +187,20 @@ public class Launch : MonoBehaviour
         //    }
         //}
 
-        if(!m_Launch)
-        {
-            for (int i = 1; i < m_Resolution + 1; i++)
-            {
-                float t = i / (float)m_Resolution;
-                m_Position[i - 1] = CalculateQuadratiqueBezierCurve(t, Freezbe.position, PositionHeightCuvre(Freezbe.position, m_Target.position), m_Target.localPosition);
-                Gizmos.DrawWireSphere(m_Position[i - 1], .5f);
-            }
-        }
+        //if(!m_Launch)
+        //{
+        //    for (int i = 1; i < m_Resolution + 1; i++)
+        //    {
+        //        float t = i / (float)m_Resolution;
+        //        m_Position[i - 1] = CalculateQuadratiqueBezierCurve(t, Freezbe.position, PositionHeightCuvre(Freezbe.position, m_Target.position), m_Target.localPosition);
+        //        Gizmos.DrawWireSphere(m_Position[i - 1], .5f);
+        //    }
+        //}
     }
 
     public Transform Object
     {
-        set { m_TargetFreebe = value; }
+        set { m_Ball = value; }
     }
 
     public Transform Target
